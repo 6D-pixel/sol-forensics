@@ -9,10 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@solana/web3.js": "^1.98.0",
+    "@tanstack/react-query": "^5.72.2",
     "babel-plugin-react-compiler": "19.0.0-beta-e993439-20250328",
+    "date-fns": "^4.1.0",
     "next": "15.2.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "reactflow": "^11.11.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
