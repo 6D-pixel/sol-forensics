@@ -12,7 +12,7 @@ export default function TransactionFlowPage() {
     try {
       assertIsAddress(address);
     } catch (e) {
-      // console.log("error wallet address", e);
+      console.log("error wallet address", e);
     }
     console.log("Wallet address:", address);
   };
@@ -21,7 +21,7 @@ export default function TransactionFlowPage() {
       <h1 className="text-2xl font-bold mb-6 text-center">
         Transaction Flow Visualization
       </h1>
-      {/* need a address state */}
+      {/* wallet Address input */}
       <div className="max-w-md mx-auto p-4">
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
@@ -33,6 +33,7 @@ export default function TransactionFlowPage() {
           <Button type="submit">Analyze Wallet</Button>
         </form>
       </div>
+      
     </div>
   );
 }
