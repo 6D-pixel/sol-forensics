@@ -4,7 +4,7 @@ import { useState } from "react"
 import TransactionGraph from "@/components/transaction-graph"
 import { InputParametersSheet } from "@/components/input-parameters-sheet"
 import { Header } from "@/components/header"
-import { ParametersTypes } from "../types"
+import { ParametersTypes } from "../../types"
 
 export default function TransactionVisualizerPage() {
   const [parameters, setParameters] = useState<ParametersTypes>({

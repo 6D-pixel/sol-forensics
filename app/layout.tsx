@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Solana Blockchain Forensics Platform",
   description:
-    "Advanced tools for investigating transactions, analyzing patterns, and uncovering insights within the Solana ecosystem.",
+    "Advanced tools for investigating transactions, analyzing patterns, and uncovering insights  within the Solana ecosystem.",
 }
 
 export default function RootLayout({
