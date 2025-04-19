@@ -1,10 +1,18 @@
 "use client"
 
 import { useState } from "react"
-import TransactionGraph from "@/components/transaction-graph"
 import { InputParametersSheet } from "@/components/input-parameters-sheet"
 import { Header } from "@/components/header"
 import { ParametersTypes } from "../../types"
+import axios from "axios"
+import dynamic from "next/dynamic"
+
+const TransactionGraph = dynamic(
+  () => import("@/components/transaction-graph"),
+  {
+    ssr: false,
+  }
+)
 
 export default function TransactionVisualizerPage() {
   const [parameters, setParameters] = useState<ParametersTypes>({
@@ -13,34 +21,37 @@ export default function TransactionVisualizerPage() {
     endDate: null,
     minValue: 0,
   })
-
-  const [isLoading, setIsLoading] = useState(false)
+  const [preData, setPreData] = useState(undefined)
+  const [isLoading, setIsLoading] = useState(true)
   const [hasData, setHasData] = useState(false)
 
-  const handleParametersChange = (newParameters: ParametersTypes) => {
+  const handleParametersChange = async (newParameters: ParametersTypes) => {
     setParameters(newParameters)
 
-    // Simulate loading state
     if (newParameters.address) {
-      setIsLoading(true)
-      setTimeout(() => {
-        setIsLoading(false)
-        setHasData(true)
-      }, 1500)
+      const Response = await axios.post("/api/address", {
+        parameters,
+      })
+
+      setPreData(Response.data)
+      setIsLoading(false)
+      setHasData(true)
+
+      console.log(Response.data)
     }
   }
 
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1 flex">
+      <main className="flex-1 flex relative">
         <InputParametersSheet
           parameters={parameters}
           onParametersChange={handleParametersChange}
         />
-        <div className="flex-1">
+        <div className="flex-1 w-full">
           <TransactionGraph
-            parameters={parameters}
+            preData={preData}
             isLoading={isLoading}
             hasData={hasData}
           />

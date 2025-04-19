@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -46,23 +46,12 @@ export function InputParametersSheet({
   onParametersChange: (newParameters: ParametersTypes) => void
 }) {
   const [isSheetOpen, setIsSheetOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
 
-  // Check if we're on mobile
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
+  function onSubmit(values: ParametersTypes): void {
+    onParametersChange(values)
+    setIsSheetOpen(false)
+  }
 
-    checkIfMobile()
-    window.addEventListener("resize", checkIfMobile)
-
-    return () => {
-      window.removeEventListener("resize", checkIfMobile)
-    }
-  }, [])
-
-  // Initialize form with react-hook-form
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -72,14 +61,6 @@ export function InputParametersSheet({
       minValue: parameters.minValue || 0,
     },
   })
-
-  // Submit handler
-function onSubmit(values: ParametersTypes): void {
-    onParametersChange(values)
-    if (isMobile) {
-        setIsSheetOpen(false)
-    }
-}
 
   const formContent = (
     <Form {...form}>
@@ -142,8 +123,9 @@ function onSubmit(values: ParametersTypes): void {
                           const endDate = form.watch("endDate")
                           return (
                             date > new Date() ||
-                            (endDate ? date > endDate : false)
-                          ) || false
+                            (endDate ? date > endDate : false) ||
+                            false
+                          )
                         }}
                         initialFocus
                       />
@@ -188,8 +170,9 @@ function onSubmit(values: ParametersTypes): void {
                           const startDate = form.watch("startDate")
                           return (
                             date > new Date() ||
-                            (startDate ? date > startDate : false)
-                          ) || false
+                            (startDate ? date > startDate : false) ||
+                            false
+                          )
                         }}
                         initialFocus
                       />
@@ -227,48 +210,49 @@ function onSubmit(values: ParametersTypes): void {
     </Form>
   )
 
-  // For desktop, render the form directly in a sidebar
-  if (!isMobile) {
-    return (
+  return (
+    <>
+      {/* Desktop sidebar - hidden on mobile, shown on md and up */}
       <div className="hidden md:block w-80 border-r bg-muted/10 p-6 overflow-y-auto">
         {formContent}
       </div>
-    )
-  }
 
-  // For mobile, render the form in a sheet with just a burger icon
-  return (
-    <div className="md:hidden fixed left-4 top-20 z-10">
-      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetTrigger asChild>
-          <Button
-            size="icon"
-            variant="outline"
-            className="h-10 w-10 rounded-full"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+      {/* Mobile sheet - shown on mobile, hidden on md and up */}
+      <div className="md:hidden fixed left-4 top-20 z-50">
+        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+          <SheetTrigger asChild>
+            <Button
+              size="icon"
+              variant="outline"
+              className="h-10 w-10 rounded-full bg-background shadow-md hover:bg-accent"
             >
-              <line x1="4" x2="20" y1="12" y2="12" />
-              <line x1="4" x2="20" y1="6" y2="6" />
-              <line x1="4" x2="20" y1="18" y2="18" />
-            </svg>
-            <span className="sr-only">Toggle menu</span>
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left" className="w-full sm:max-w-md">
-          <h2 className="text-lg font-semibold mb-4">Input Parameters</h2>
-          {formContent}
-        </SheetContent>
-      </Sheet>
-    </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="4" x2="20" y1="12" y2="12" />
+                <line x1="4" x2="20" y1="6" y2="6" />
+                <line x1="4" x2="20" y1="18" y2="18" />
+              </svg>
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent
+            side="left"
+            className="w-[90%] sm:w-[440px] overflow-y-auto"
+          >
+            <h2 className="text-lg font-semibold mb-4">Input Parameters</h2>
+            {formContent}
+          </SheetContent>
+        </Sheet>
+      </div>
+    </>
   )
 }

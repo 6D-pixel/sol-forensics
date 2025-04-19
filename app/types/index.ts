@@ -6,7 +6,7 @@ export interface ParametersTypes {
 }
 
 export interface TransactionGraphProps {
-  parameters: ParametersTypes
+  preData:undefined | any
   isLoading: Boolean
   hasData: Boolean
 }
