@@ -1,16 +1,16 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
-import { Network, Wallet, GitMerge, Tag, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion"
+import { Network, Wallet, GitMerge, Tag, ArrowRight } from "lucide-react"
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+} from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 const features = [
   {
@@ -19,7 +19,7 @@ const features = [
       "Visualize and analyze individual transactions on the Solana blockchain with detailed flow diagrams and metadata inspection.",
     icon: Network,
     color: "from-blue-500 to-cyan-500",
-    link:"/transaction-flow-visualization"
+    link: "/transaction-visualizer",
   },
   {
     title: "Wallet Analyzer",
@@ -27,7 +27,7 @@ const features = [
       "Deep dive into wallet activity, holdings, and transaction patterns to identify suspicious behavior and track fund movements.",
     icon: Wallet,
     color: "from-purple-500 to-pink-500",
-    link:"/wallet-analysis"
+    link: "/wallet-analysis",
   },
   {
     title: "Cluster Detection",
@@ -35,7 +35,7 @@ const features = [
       "Identify and analyze transaction clusters and relationships between wallets to uncover hidden connections and networks.",
     icon: GitMerge,
     color: "from-orange-500 to-amber-500",
-    link:"/cluster"
+    link: "/cluster",
   },
   {
     title: "Entity Labeling",
@@ -43,9 +43,9 @@ const features = [
       "Label and categorize entities within the Solana ecosystem to build a comprehensive database of known addresses and services.",
     icon: Tag,
     color: "from-green-500 to-emerald-500",
-    link:"/labeling"
+    link: "/labeling",
   },
-];
+]
 
 export function Features() {
   const containerVariants = {
@@ -56,7 +56,7 @@ export function Features() {
         staggerChildren: 0.1,
       },
     },
-  };
+  }
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -67,7 +67,7 @@ export function Features() {
         duration: 0.5,
       },
     },
-  };
+  }
 
   return (
     <section className="py-20 bg-muted/50">
@@ -92,26 +92,27 @@ export function Features() {
           {features.map((feature, index) => (
             <motion.div key={index} variants={itemVariants}>
               <Link href={feature.link}>
-              <Card className="h-full transition-all hover:shadow-md">
-                <CardHeader>
-                  <div
-                    className={`w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br ${feature.color} text-white mb-4`}
-                  >
-                    <feature.icon size={24} />
-                  </div>
-                  <CardTitle>{feature.title}</CardTitle>
-                  <CardDescription>{feature.description}</CardDescription>
-                </CardHeader>
-                <CardFooter>
-                  <Button variant="ghost" className="p-0 h-auto font-medium">
-                    Learn more <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </CardFooter>
-              </Card></Link>
+                <Card className="h-full transition-all hover:shadow-md">
+                  <CardHeader>
+                    <div
+                      className={`w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br ${feature.color} text-white mb-4`}
+                    >
+                      <feature.icon size={24} />
+                    </div>
+                    <CardTitle>{feature.title}</CardTitle>
+                    <CardDescription>{feature.description}</CardDescription>
+                  </CardHeader>
+                  <CardFooter>
+                    <Button variant="ghost" className="p-0 h-auto font-medium">
+                      Learn more <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Link>
             </motion.div>
           ))}
         </motion.div>
       </div>
     </section>
-  );
+  )
 }

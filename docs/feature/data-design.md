@@ -208,17 +208,28 @@
 ]
 # format form
 node[{
-    address,
-    balance "show the size of the node",
+    key
+    label: address,
+     size: balance "show the size of the node" || 3,
     x,y layout algo,
     color
+    type:circle|square,
+    hidden: boolean
+    zIndex: position of the node higher the value top the node will be placed
+   
 }]
-edges[
+edges[{
+    key
+    size: thickness
+    color:string
+    label :transfer amount,
+    type: liner | arrow | curve
     from,
     to (arrow direction),
-    transfer amount,
     signature of the transaction,
     human readable description,
     Type: 'stake' | 'Transfer'...,
     source:'program' (optional)
-]
+    hidden:boolean
+    zIndex
+}]

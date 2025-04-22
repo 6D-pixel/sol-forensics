@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import axios from "axios"
 import { ApiResponseSignature, ParametersTypes } from "../types"
+import redis from "@/lib/redis"
 
 //gets wallet history
 export async function GET(
@@ -39,7 +40,7 @@ export async function GET(
 //post request to get all Transactions
 export async function POST(req: NextRequest) {
   try {
-    const {parameters} = await req.json()
+    const { parameters } = await req.json()
     const heliusApiKey = process.env.HELIUS_API
     const walletAddress = parameters.address
 
@@ -49,6 +50,13 @@ export async function POST(req: NextRequest) {
         { error: "Server config error" },
         { status: 500 }
       )
+    }
+
+    //check redis
+    const catchData = await redis.get(walletAddress)
+    if (catchData) {
+      console.log("cache hit for wallet: ", walletAddress)
+      return NextResponse.json(JSON.parse(catchData))
     }
 
     // Get signatures from address
@@ -65,8 +73,12 @@ export async function POST(req: NextRequest) {
     //push transaction to array
     let transactions: Array<string> = []
 
-    response.data.result.forEach((element) => {
+    const results = Array.isArray(response.data.result)
+      ? response.data.result
+      : []
+    results.forEach((element) => {
       if (element.err === null) {
+        //check for success
         transactions.push(element.signature)
       }
     })
@@ -78,6 +90,9 @@ export async function POST(req: NextRequest) {
     const txResponse = await axios.post(`${txUrl}?api-key=${heliusApiKey}`, {
       transactions: transactions, //passing transactions array MAX 100 limit
     })
+
+    //set redis
+    await redis.set(walletAddress, JSON.stringify(txResponse.data), "EX", 3600)
 
     return NextResponse.json(txResponse.data)
   } catch (e: any) {
