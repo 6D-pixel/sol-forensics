@@ -12,11 +12,12 @@ import "@react-sigma/core/lib/style.css"
 import { TransactionGraphProps } from "@/app/types"
 import processData from "@/lib/process-data"
 import { GraphData } from "@/app/types"
-import { useLayoutCircular } from "@react-sigma/layout-circular"
 import LayoutControler from "./layoutControler"
 import { ZoomIn, ZoomOut, Focus } from "lucide-react"
 import { useLayoutRandom } from "@react-sigma/layout-random"
-
+import getCSSVar from "@/util/getcssvar"
+import { EdgeCurvedArrowProgram } from "@sigma/edge-curve"
+import { NodeBorderProgram } from "@sigma/node-border"
 export default function TransactionGraph({
   preData,
   isLoading,
@@ -46,9 +47,8 @@ export default function TransactionGraph({
           x: node.x,
           y: node.y,
           size: node.size,
-          label: node.address.substring(0, 4),
-          color: node.color,
           hidden: false,
+          borderColor: "#532d88",
         })
       }
 
@@ -57,9 +57,7 @@ export default function TransactionGraph({
         try {
           graph.addEdge(edge.from, edge.to, {
             size: 2,
-            color: "hsl(var(--foreground))",
             label: `${edge.transferAmount} SOL`,
-            type: "arrow",
           })
         } catch (error) {
           console.warn("Failed to add edge:", error)
@@ -99,17 +97,26 @@ export default function TransactionGraph({
   }
 
   const sigmaStyle = {
-    backgroundColor: "transparent",
+    cursor: "move",
   }
+  const nodeColor = getCSSVar("--chart-4")
+  const edgeColor = getCSSVar("--chart-3")
   const settingCustom = {
     allowInvalidContainer: true,
     renderEdgeLabels: true,
-    defaultEdgeType: "straight",
+    defaultNodeColor: nodeColor,
+    defaultEdgeColor: edgeColor,
+    minEdgeThickness: 3,
+    autoRescale: true,
+    defaultEdgeType: "curvedArrow",
+    edgeLabelWeight: 'bold',
     edgeProgramClasses: {
-      // straight: EdgeArrowProgram,
-      // curved: EdgeCurveProgram,
+      curvedArrow: EdgeCurvedArrowProgram,
     },
-    labelColor: { color: "white" },
+    defaultNodeType: "bordered",
+    nodeProgramClasses: {
+      bordered: NodeBorderProgram,
+    },
   }
 
   return (

@@ -1,18 +1,18 @@
 [x] get data for transactions
+    [] from dune / flipSide
 [x] from helios api / vyper
-[] from dune / flipSide
+[x] display the data in the form of graph
+[x] there is some error in the input submit button need to fix first request is failing (react stat update is async)
+[x] zoom option for the graph
+[x] Graph layout and see if it can be done using workers
 [] process data for node and edges\
  [x] basic implementation done
 [] there are different types present like (swaps,etc...)
-[x] display the data in the form of graph
 [] Cluster the data using some algo available in graphology
 [] label known wallets (some already has labels)
-[x] there is some error in the input submit button need to fix first request is failing (react stat update is async)
 [] features
-[] can use graphology lib to find other wallet inside the graph (graph.has('node'))
-[x] zoom option for the graph
+    [] can use graphology lib to find other wallet inside the graph (graph.has('node'))
 [] render the graph like bubble map
-[x] Graph layout and see if it can be done using workers
 
 # Backend
 
@@ -26,4 +26,6 @@
 
 # bug
 
-    web-worker not getting killed
+[x]web-worker not getting killed
+    - i did't use kill() forgot '()' (use eslint in future)
+    - the kill() removed to worker and it when i choose the graph type 'fa2||..' error worker layout killed used stop() instead

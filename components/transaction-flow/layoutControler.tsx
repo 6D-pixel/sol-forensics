@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useRef } from "react"
+import { useCallback } from "react"
 //layouts
 import { useLayoutCirclepack } from "@react-sigma/layout-circlepack"
 import { useLayoutCircular } from "@react-sigma/layout-circular"
@@ -27,9 +27,6 @@ import {
 } from "lucide-react"
 
 export default function LayoutControler() {
-// Track active worker-based layout
-  const activeWorkerLayout = useRef<string | null>(null)
-
   //init layouts
   const circlepack = useLayoutCirclepack()
   const circular = useLayoutCircular()
@@ -40,16 +37,15 @@ export default function LayoutControler() {
 
   //start and kill
   const stopAll = useCallback(() => {
-    [force, fa2, noverlap].forEach((l) => l.kill());
-  }, [force, fa2, noverlap]);
+    ;[force, fa2, noverlap].forEach((l) => l.stop())
+  }, [force, fa2, noverlap])
 
   const apply = useCallback(
     async (
       which: "circlepack" | "circular" | "force" | "fa2" | "noverlap" | "random"
     ) => {
+      // First stop any running layouts
       stopAll()
-
-      await new Promise((resolve) => setTimeout(resolve, 100))
 
       switch (which) {
         case "circlepack":

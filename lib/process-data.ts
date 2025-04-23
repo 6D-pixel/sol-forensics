@@ -1,9 +1,9 @@
 export default function processData(predata: any) {
   const nodesMap = new Map()
-  const edges : any[] = []
+  const edges: any[] = []
   if (!predata) {
     console.log("empty data was given", predata)
-    return {nodesMap,edges}
+    return { nodesMap, edges }
   }
   //successful transaction
   //@ts-ignore
@@ -14,10 +14,9 @@ export default function processData(predata: any) {
   //   let filterTypes = filterError.filter((data) => data.type === "UNKNOWN" || "WITHDRAW" || "DEPOSIT" || "TRANSFER")
 
   // console.log("filterError", filterError) // checkpoint working
-  
+
   //loop all transactions
-  
-  
+
   for (const value of filterError) {
     const sig = value.signature
     const des = value.description
@@ -34,10 +33,7 @@ export default function processData(predata: any) {
           nodesMap.set(addrs, {
             address: addrs,
             balance: 0,
-            size: 15,
-            x: Math.random(),
-            y: Math.random(),
-            color: 'blue',
+            size: 20,
           })
         }
       }
@@ -49,7 +45,7 @@ export default function processData(predata: any) {
         transferAmount: amount / 1e9,
         signature: sig,
         description: des,
-        txType:type,
+        txType: type,
         source,
       })
     }
@@ -57,7 +53,7 @@ export default function processData(predata: any) {
   //fetch balance for size
 
   console.log(nodesMap)
-  console.log('edges',edges)
+  console.log("edges", edges)
 
   return { nodesMap, edges }
 }

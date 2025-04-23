@@ -53,6 +53,12 @@ importers:
       '@react-sigma/layout-random':
         specifier: ^5.0.2
         version: 5.0.2(graphology-layout@0.6.1(graphology-types@0.24.8))(graphology@0.26.0(graphology-types@0.24.8))(react@19.1.0)(sigma@3.0.1(graphology-types@0.24.8))
+      '@sigma/edge-curve':
+        specifier: ^3.1.0
+        version: 3.1.0(sigma@3.0.1(graphology-types@0.24.8))
+      '@sigma/node-border':
+        specifier: ^3.0.0
+        version: 3.0.0(sigma@3.0.1(graphology-types@0.24.8))
       axios:
         specifier: ^1.8.4
         version: 1.8.4
@@ -715,6 +721,16 @@ packages:
     resolution: {integrity: sha512-hO/uVT8fNWbEo5gPDg4/P7iomkL+fL9aR/j3nnbgw1bMreTSB9zCIxqNbHHfyAh7mcDrQmYtaCNCig6XfGi35Q==}
     peerDependencies:
       graphology-layout: ^0.6.1
+
+  '@sigma/edge-curve@3.1.0':
+    resolution: {integrity: sha512-OFWkfAXEsm+X8l1K4K49cC0psB0gQ+gqxKA08HG5piNPdzrDZ5gG9Gza6htZ5AirOVwd/4/uq/gPpD5En+H+3Q==}
+    peerDependencies:
+      sigma: '>=3.0.0-beta.10'
+
+  '@sigma/node-border@3.0.0':
+    resolution: {integrity: sha512-mE3zUfjvJVuAMhSjiP/zdlkqe0OVTETxd04XHUwof01YqdzTk0OB4ACJIhWrwgsBXl7tTd9lPuKoroafLh8MtQ==}
+    peerDependencies:
+      sigma: '>=3.0.0-beta.17'
 
   '@solana-program/address-lookup-table@0.7.0':
     resolution: {integrity: sha512-dzCeIO5LtiK3bIg0AwO+TPeGURjSG2BKt0c4FRx7105AgLy7uzTktpUzUj6NXAK9SzbirI8HyvHUvw1uvL8O9A==}
@@ -2149,6 +2165,14 @@ snapshots:
       - graphology
       - react
       - sigma
+
+  '@sigma/edge-curve@3.1.0(sigma@3.0.1(graphology-types@0.24.8))':
+    dependencies:
+      sigma: 3.0.1(graphology-types@0.24.8)
+
+  '@sigma/node-border@3.0.0(sigma@3.0.1(graphology-types@0.24.8))':
+    dependencies:
+      sigma: 3.0.1(graphology-types@0.24.8)
 
   '@solana-program/address-lookup-table@0.7.0(@solana/kit@2.1.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.8.3)(ws@8.18.1))':
     dependencies:
