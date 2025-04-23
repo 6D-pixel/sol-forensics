@@ -7,7 +7,7 @@ import axios from "axios"
 import dynamic from "next/dynamic"
 
 const TransactionGraph = dynamic(
-  () => import("@/components/transaction-graph"),
+  () => import("@/components/transaction-flow/transaction-graph"),
   {
     ssr: false,
   }

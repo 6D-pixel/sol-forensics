@@ -76,6 +76,16 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Override Sigma graph default variables */
+  --sigma-background-color: transparent !important;
+  --sigma-controls-background-color: transparent !important;
+  --sigma-controls-background-color-hover: hsl(var(--foreground) / 0.1) !important;
+  --sigma-controls-border-color: hsl(var(--foreground) / 0.2) !important;
+  --sigma-controls-color: hsl(var(--foreground)) !important;
+  --sigma-controls-zindex: 100;
+  --sigma-controls-margin: 5px;
+  --sigma-controls-size: 30px;
 }
 
 .dark {
@@ -110,6 +120,13 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Override Sigma graph default variables */
+  --sigma-background-color: transparent !important;
+  --sigma-controls-background-color: transparent !important;
+  --sigma-controls-background-color-hover: hsl(var(--foreground) / 0.1) !important;
+  --sigma-controls-border-color: hsl(var(--foreground) / 0.2) !important;
+  --sigma-controls-color: hsl(var(--foreground)) !important;
 }
 
 @layer base {

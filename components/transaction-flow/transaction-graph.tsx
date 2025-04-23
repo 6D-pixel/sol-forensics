@@ -1,4 +1,5 @@
 "use client"
+
 import { useEffect, useState } from "react"
 import Graph from "graphology"
 import {
@@ -11,6 +12,10 @@ import "@react-sigma/core/lib/style.css"
 import { TransactionGraphProps } from "@/app/types"
 import processData from "@/lib/process-data"
 import { GraphData } from "@/app/types"
+import { useLayoutCircular } from "@react-sigma/layout-circular"
+import LayoutControler from "./layoutControler"
+import { ZoomIn, ZoomOut, Focus } from "lucide-react"
+import { useLayoutRandom } from "@react-sigma/layout-random"
 
 export default function TransactionGraph({
   preData,
@@ -29,6 +34,7 @@ export default function TransactionGraph({
 
   const LoadGraph = () => {
     const loadGraph = useLoadGraph()
+    const { assign } = useLayoutRandom()
 
     useEffect(() => {
       if (!graphData) return
@@ -51,7 +57,7 @@ export default function TransactionGraph({
         try {
           graph.addEdge(edge.from, edge.to, {
             size: 2,
-            color: "white",
+            color: "hsl(var(--foreground))",
             label: `${edge.transferAmount} SOL`,
             type: "arrow",
           })
@@ -61,6 +67,8 @@ export default function TransactionGraph({
       }
 
       loadGraph(graph)
+      //apply layout
+      assign()
     }, [graphData, loadGraph])
 
     return null
@@ -91,8 +99,7 @@ export default function TransactionGraph({
   }
 
   const sigmaStyle = {
-    backgroundColor: "var(--background)",
-    textColor: "node",
+    backgroundColor: "transparent",
   }
   const settingCustom = {
     allowInvalidContainer: true,
@@ -109,8 +116,34 @@ export default function TransactionGraph({
     <section className="w-full h-full">
       <SigmaContainer style={sigmaStyle} settings={settingCustom}>
         <LoadGraph />
-        <ControlsContainer position={"bottom-right"}>
-          <ZoomControl />
+        <ControlsContainer
+          position={"bottom-left"}
+          style={{
+            marginLeft: "1rem",
+            marginBottom: "2rem",
+            backgroundColor: "transparent",
+            transition: "all 0.2s ease-in-out",
+          }}
+        >
+          <ZoomControl
+            labels={{ zoomIn: "PLUS", zoomOut: "MINUS", reset: "RESET" }}
+          >
+            <ZoomIn
+              color="var(--foreground)"
+              className="transition-colors hover:bg-foreground/10"
+            />
+            <ZoomOut
+              color="var(--foreground)"
+              className="transition-colors hover:bg-foreground/10"
+            />
+            <Focus
+              color="var(--foreground)"
+              className="transition-colors hover:bg-foreground/10"
+            />
+          </ZoomControl>
+        </ControlsContainer>
+        <ControlsContainer position="top-left">
+          <LayoutControler />
         </ControlsContainer>
       </SigmaContainer>
     </section>
