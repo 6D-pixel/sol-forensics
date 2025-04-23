@@ -7,6 +7,7 @@ import {
   useLoadGraph,
   ControlsContainer,
   ZoomControl,
+  useSigma,
 } from "@react-sigma/core"
 import "@react-sigma/core/lib/style.css"
 import { TransactionGraphProps } from "@/app/types"
@@ -18,10 +19,13 @@ import { useLayoutRandom } from "@react-sigma/layout-random"
 import getCSSVar from "@/util/getcssvar"
 import { EdgeCurvedArrowProgram } from "@sigma/edge-curve"
 import { NodeBorderProgram } from "@sigma/node-border"
+import { NodeDisplayData } from "sigma/types"
+
 export default function TransactionGraph({
   preData,
   isLoading,
   hasData,
+  parameters,
 }: TransactionGraphProps) {
   const [graphData, setGraphData] = useState<GraphData | null>(null)
 
@@ -67,8 +71,26 @@ export default function TransactionGraph({
       loadGraph(graph)
       //apply layout
       assign()
-    }, [graphData, loadGraph])
+    }, [graphData, loadGraph, preData, assign])
 
+    return null
+  }
+
+  // Change Node color
+  const ChangeNodeColor = () => {
+    const sigma = useSigma()
+    useEffect(() => {
+      sigma.setSetting("nodeReducer", (node, data) => {
+        const newData = { ...data }
+        console.log(parameters)
+        console.log(node)
+        if (node === parameters.address) {
+          newData.color = "#FF0000" // Red, for example
+        }
+        return newData
+      })
+      sigma.refresh()
+    }, [sigma, preData.address])
     return null
   }
 
@@ -101,6 +123,7 @@ export default function TransactionGraph({
   }
   const nodeColor = getCSSVar("--chart-4")
   const edgeColor = getCSSVar("--chart-3")
+
   const settingCustom = {
     allowInvalidContainer: true,
     renderEdgeLabels: true,
@@ -109,7 +132,7 @@ export default function TransactionGraph({
     minEdgeThickness: 3,
     autoRescale: true,
     defaultEdgeType: "curvedArrow",
-    edgeLabelWeight: 'bold',
+    edgeLabelWeight: "bold",
     edgeProgramClasses: {
       curvedArrow: EdgeCurvedArrowProgram,
     },
@@ -152,6 +175,7 @@ export default function TransactionGraph({
         <ControlsContainer position="top-left">
           <LayoutControler />
         </ControlsContainer>
+        <ChangeNodeColor />
       </SigmaContainer>
     </section>
   )

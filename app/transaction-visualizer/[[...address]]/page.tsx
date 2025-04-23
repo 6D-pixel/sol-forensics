@@ -49,6 +49,7 @@ export default function TransactionVisualizerPage() {
         />
         <div className="flex-1 w-full">
           <TransactionGraph
+            parameters={parameters}
             preData={preData}
             isLoading={isLoading}
             hasData={hasData}

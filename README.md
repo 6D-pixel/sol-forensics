@@ -12,7 +12,10 @@
 [] label known wallets (some already has labels)
 [] features
     [] can use graphology lib to find other wallet inside the graph (graph.has('node'))
-[] render the graph like bubble map
+[x] render the graph like bubble map
+[] adding graph event
+    [] hover to view node data
+[x] special color for user entered wallet 
 
 # Backend
 

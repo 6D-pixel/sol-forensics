@@ -9,6 +9,7 @@ export interface TransactionGraphProps {
   preData: undefined | any
   isLoading: Boolean
   hasData: Boolean
+  parameters:ParametersTypes
 }
 
 export interface Node {
