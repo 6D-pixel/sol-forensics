@@ -19,8 +19,7 @@ import { useLayoutRandom } from "@react-sigma/layout-random"
 import getCSSVar from "@/util/getcssvar"
 import { EdgeCurvedArrowProgram } from "@sigma/edge-curve"
 import { NodeBorderProgram } from "@sigma/node-border"
-import { NodeDisplayData } from "sigma/types"
-
+import ChangeNodeColor from "./chageColor"
 export default function TransactionGraph({
   preData,
   isLoading,
@@ -76,23 +75,7 @@ export default function TransactionGraph({
     return null
   }
 
-  // Change Node color
-  const ChangeNodeColor = () => {
-    const sigma = useSigma()
-    useEffect(() => {
-      sigma.setSetting("nodeReducer", (node, data) => {
-        const newData = { ...data }
-        console.log(parameters)
-        console.log(node)
-        if (node === parameters.address) {
-          newData.color = "#FF0000" // Red, for example
-        }
-        return newData
-      })
-      sigma.refresh()
-    }, [sigma, preData.address])
-    return null
-  }
+  
 
   if (isLoading) {
     return (
@@ -175,7 +158,7 @@ export default function TransactionGraph({
         <ControlsContainer position="top-left">
           <LayoutControler />
         </ControlsContainer>
-        <ChangeNodeColor />
+        <ChangeNodeColor parameters={parameters} />
       </SigmaContainer>
     </section>
   )
