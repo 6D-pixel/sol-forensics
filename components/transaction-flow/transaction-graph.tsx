@@ -20,6 +20,7 @@ import getCSSVar from "@/util/getcssvar"
 import { EdgeCurvedArrowProgram } from "@sigma/edge-curve"
 import { NodeBorderProgram } from "@sigma/node-border"
 import ChangeNodeColor from "./chageColor"
+import GraphEvents from "./graphEvents"
 export default function TransactionGraph({
   preData,
   isLoading,
@@ -159,6 +160,7 @@ export default function TransactionGraph({
           <LayoutControler />
         </ControlsContainer>
         <ChangeNodeColor parameters={parameters} />
+        <GraphEvents/>
       </SigmaContainer>
     </section>
   )
