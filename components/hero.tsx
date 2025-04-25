@@ -44,7 +44,8 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="text-xl text-muted-foreground"
             >
-              Investigate transactions, analyze patterns, and uncover insights within the Solana ecosystem.
+              Investigate transactions, analyze patterns, and uncover insights
+              within the Solana ecosystem.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -52,10 +53,13 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <Link href={"/transaction-visualizer"} >
-              <Button size="lg" className="bg-gradient-to-r from-[#00FFA3] to-[#DC1FFF] text-white hover:opacity-90 cursor-pointer">
-                Start Investigating
-              </Button>
+              <Link href={"/transaction-visualizer"}>
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-[#00FFA3] to-[#DC1FFF] text-white hover:opacity-90 cursor-pointer"
+                >
+                  Start Investigating
+                </Button>
               </Link>
             </motion.div>
           </motion.div>
