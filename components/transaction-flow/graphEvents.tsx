@@ -55,7 +55,8 @@ function GraphEvents() {
       },
       leaveNode: () => {
         container.style.cursor = "move"
-        setHoveredNode(null)
+        setTimeout(() => setHoveredNode(null), 10000)
+        
       },
       enterEdge: (event) => {
         container.style.cursor = "pointer"
@@ -77,10 +78,8 @@ function GraphEvents() {
       },
       leaveEdge: () => {
         container.style.cursor = "move"
-        setHoveredEdge(null)
+        setTimeout(() => setHoveredEdge(null), 10000)
       },
-      beforeRender: () => console.log('beforeRender'),
-      afterRender: () => console.log('afterRender'),
     })
   }, [registerEvents, sigma])
 

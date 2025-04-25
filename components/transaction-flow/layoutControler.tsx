@@ -4,9 +4,12 @@ import { useCallback } from "react"
 //layouts
 import { useLayoutCirclepack } from "@react-sigma/layout-circlepack"
 import { useLayoutCircular } from "@react-sigma/layout-circular"
-import { useLayoutForce, useWorkerLayoutForce } from "@react-sigma/layout-force"
+import { useWorkerLayoutForce } from "@react-sigma/layout-force"
 import { useWorkerLayoutForceAtlas2 } from "@react-sigma/layout-forceatlas2"
-import { useWorkerLayoutNoverlap } from "@react-sigma/layout-noverlap"
+import {
+  useLayoutNoverlap,
+  useWorkerLayoutNoverlap,
+} from "@react-sigma/layout-noverlap"
 import { useLayoutRandom } from "@react-sigma/layout-random"
 
 import {
@@ -31,8 +34,18 @@ export default function LayoutControler() {
   const circlepack = useLayoutCirclepack()
   const circular = useLayoutCircular()
   const force = useWorkerLayoutForce()
-  const fa2 = useWorkerLayoutForceAtlas2()
+  const fa2 = useWorkerLayoutForceAtlas2({
+    settings: {
+      gravity: 1,
+    },
+  })
   const noverlap = useWorkerLayoutNoverlap()
+  const NoverLap = useLayoutNoverlap({
+    settings: {
+      gridSize: 30,
+      margin: 10,
+    },
+  })
   const random = useLayoutRandom()
 
   //start and kill
@@ -50,18 +63,21 @@ export default function LayoutControler() {
       switch (which) {
         case "circlepack":
           circlepack.assign()
+          NoverLap.assign()
           break
         case "circular":
           circular.assign()
           break
         case "force":
           force.start()
+          // Run noverlap after force layout
           break
         case "fa2":
           fa2.start()
+          // Run noverlap after force atlas 2
           break
         case "noverlap":
-          noverlap.start()
+          NoverLap.assign()
           break
         case "random":
           random.assign()

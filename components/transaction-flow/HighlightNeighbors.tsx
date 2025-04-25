@@ -18,7 +18,7 @@ const HighlightNeighbors = ({
     const leaveHandler = () => setSelectedNode(null)
 
     sigma.on("clickNode", enterHandler)
-    sigma.on("leaveNode", leaveHandler)
+    sigma.on("clickStage", leaveHandler)
 
     sigma.setSetting("nodeReducer", (node, data) => {
       if (!selectedNode) {
@@ -49,7 +49,7 @@ const HighlightNeighbors = ({
 
     return () => {
       sigma.off("clickNode", enterHandler)
-      sigma.off("leaveNode", leaveHandler)
+      sigma.off("clickStage", leaveHandler)
     }
   }, [sigma, selectedNode, graph])
 

@@ -15,13 +15,12 @@ import processData from "@/lib/process-data"
 import { GraphData } from "@/app/types"
 import LayoutControler from "./layoutControler"
 import { ZoomIn, ZoomOut, Focus } from "lucide-react"
-import { useLayoutRandom } from "@react-sigma/layout-random"
 import getCSSVar from "@/util/getcssvar"
 import { EdgeCurvedArrowProgram } from "@sigma/edge-curve"
 import { NodeBorderProgram } from "@sigma/node-border"
-import ChangeNodeColor from "./chageColor"
 import GraphEvents from "./graphEvents"
 import HighlightNeighbors from "./HighlightNeighbors"
+import { useLayoutCirclepack } from "@react-sigma/layout-circlepack"
 export default function TransactionGraph({
   preData,
   isLoading,
@@ -40,7 +39,7 @@ export default function TransactionGraph({
 
   const LoadGraph = () => {
     const loadGraph = useLoadGraph()
-    const { assign } = useLayoutRandom()
+    const { assign } = useLayoutCirclepack()
 
     useEffect(() => {
       if (!graphData) return
@@ -69,8 +68,8 @@ export default function TransactionGraph({
             signature: edge.signature,
             txType: edge.txType,
             source: edge.source,
-            timestamp:edge.timestamp,
-            description:edge.description
+            timestamp: edge.timestamp,
+            description: edge.description,
           })
         } catch (error) {
           console.warn("Failed to add edge:", error)
@@ -132,7 +131,7 @@ export default function TransactionGraph({
       bordered: NodeBorderProgram,
     },
     enableEdgeEvents: true,
-    zIndex:true
+    zIndex: true,
   }
 
   return (
@@ -169,7 +168,7 @@ export default function TransactionGraph({
           <LayoutControler />
         </ControlsContainer>
         <GraphEvents />
-        <HighlightNeighbors parameters={parameters}/>
+        <HighlightNeighbors parameters={parameters} />
       </SigmaContainer>
     </section>
   )
