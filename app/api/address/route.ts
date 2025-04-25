@@ -94,6 +94,7 @@ export async function POST(req: NextRequest) {
     //set redis
     await redis.set(walletAddress, JSON.stringify(txResponse.data), "EX", 3600)
 
+
     return NextResponse.json(txResponse.data)
   } catch (e: any) {
     console.error("error fetching wallet history from Helius", e)

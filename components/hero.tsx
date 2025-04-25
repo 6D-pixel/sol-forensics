@@ -3,12 +3,11 @@
 import { motion } from "framer-motion"
 import { BlockchainAnimation } from "@/components/blockchain-animation"
 import { Button } from "@/components/ui/button"
-import { Header } from "@/components/header"
+import Link from "next/link"
 
 export function Hero() {
   return (
     <div className="relative overflow-hidden">
-      <Header />
       <div className="container relative z-10 mx-auto px-4 py-24 md:py-32">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 items-center">
           <motion.div
@@ -53,12 +52,11 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <Button size="lg" className="bg-gradient-to-r from-[#00FFA3] to-[#DC1FFF] text-white hover:opacity-90">
+              <Link href={"/transaction-visualizer"} >
+              <Button size="lg" className="bg-gradient-to-r from-[#00FFA3] to-[#DC1FFF] text-white hover:opacity-90 cursor-pointer">
                 Start Investigating
               </Button>
-              <Button size="lg" variant="outline">
-                Watch Demo
-              </Button>
+              </Link>
             </motion.div>
           </motion.div>
           <motion.div

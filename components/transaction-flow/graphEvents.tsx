@@ -56,12 +56,11 @@ function GraphEvents() {
       leaveNode: () => {
         container.style.cursor = "move"
         setTimeout(() => setHoveredNode(null), 10000)
-        
       },
       enterEdge: (event) => {
         container.style.cursor = "pointer"
         const edge = sigma.getGraph().getEdgeAttributes(event.edge)
-        console.log("edge :", edge)
+
         setHoveredEdge({
           from: edge.from || "",
           to: edge.to || "",
@@ -163,7 +162,9 @@ function GraphEvents() {
                 <div>
                   <p className="text-xs text-muted-foreground">Time</p>
                   <p className="text-sm">
-                    {new Date(hoveredEdge.timestamp).toLocaleString()}
+                    {new Date(
+                      Number(hoveredEdge.timestamp) * 1000
+                    ).toLocaleString()}
                   </p>
                 </div>
               )}

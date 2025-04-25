@@ -40,15 +40,15 @@ const formSchema = z.object({
 
 export function InputParametersSheet({
   parameters,
-  onParametersChange,
+  onParametersChangeAction,
 }: {
   parameters: ParametersTypes
-  onParametersChange: (newParameters: ParametersTypes) => void
+  onParametersChangeAction: (newParameters: ParametersTypes) => void
 }) {
   const [isSheetOpen, setIsSheetOpen] = useState(false)
 
   function onSubmit(values: ParametersTypes): void {
-    onParametersChange(values)
+    onParametersChangeAction(values)
     setIsSheetOpen(false)
   }
 
@@ -122,9 +122,8 @@ export function InputParametersSheet({
                         disabled={(date) => {
                           const endDate = form.watch("endDate")
                           return (
-                            date > new Date() ||
-                            (endDate ? date > endDate : false) ||
-                            false
+                            date > new Date() || // Can't be future date
+                            (endDate ? date > endDate : false) // Start date can't be after end date
                           )
                         }}
                         initialFocus
@@ -170,8 +169,7 @@ export function InputParametersSheet({
                           const startDate = form.watch("startDate")
                           return (
                             date > new Date() ||
-                            (startDate ? date > startDate : false) ||
-                            false
+                            (startDate ? date < startDate : false) // End date can't be before start date
                           )
                         }}
                         initialFocus

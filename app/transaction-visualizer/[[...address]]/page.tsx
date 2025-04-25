@@ -45,7 +45,7 @@ export default function TransactionVisualizerPage() {
       <main className="flex-1 flex relative">
         <InputParametersSheet
           parameters={parameters}
-          onParametersChange={handleParametersChange}
+          onParametersChangeAction={handleParametersChange}
         />
         <div className="flex-1 w-full">
           <TransactionGraph

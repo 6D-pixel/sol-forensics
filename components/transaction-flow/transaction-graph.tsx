@@ -32,7 +32,7 @@ export default function TransactionGraph({
   // Process data when preData changes
   useEffect(() => {
     if (preData) {
-      const processed = processData(preData)
+      const processed = processData(preData, parameters)
       setGraphData(processed)
     }
   }, [preData])
