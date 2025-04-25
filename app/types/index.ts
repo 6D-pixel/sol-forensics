@@ -9,7 +9,7 @@ export interface TransactionGraphProps {
   preData: undefined | any
   isLoading: Boolean
   hasData: Boolean
-  parameters:ParametersTypes
+  parameters: ParametersTypes
 }
 
 export interface Node {
@@ -38,6 +38,7 @@ export interface Edge {
   source?: undefined
   hidden?: Boolean
   zIndex?: Number
+  timestamp?: string
 }
 
 export interface GraphData {
@@ -58,7 +59,8 @@ export interface GraphData {
     transferAmount: number
     signature: string
     description: string
-    type: string
+    txType: string
     source: string
+    timestamp: string
   }>
 }

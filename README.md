@@ -15,7 +15,8 @@
 [] features
 [] can use graphology lib to find other wallet inside the graph (graph.has('node'))
 - [] adding graph event
-  - [] hover to view node data
+  - [x] hover to view node data
+    [] add link to solscan for the card
     [] Drag and drop (low priority)
     [] Change settings of the force graph and fa2 for the repel and see edges
 

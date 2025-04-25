@@ -21,6 +21,7 @@ import { EdgeCurvedArrowProgram } from "@sigma/edge-curve"
 import { NodeBorderProgram } from "@sigma/node-border"
 import ChangeNodeColor from "./chageColor"
 import GraphEvents from "./graphEvents"
+import HighlightNeighbors from "./HighlightNeighbors"
 export default function TransactionGraph({
   preData,
   isLoading,
@@ -53,6 +54,7 @@ export default function TransactionGraph({
           size: node.size,
           hidden: false,
           borderColor: "#532d88",
+          balance: node.balance,
         })
       }
 
@@ -62,6 +64,13 @@ export default function TransactionGraph({
           graph.addEdge(edge.from, edge.to, {
             size: 2,
             label: `${edge.transferAmount} SOL`,
+            from: edge.from,
+            to: edge.to,
+            signature: edge.signature,
+            txType: edge.txType,
+            source: edge.source,
+            timestamp:edge.timestamp,
+            description:edge.description
           })
         } catch (error) {
           console.warn("Failed to add edge:", error)
@@ -75,8 +84,6 @@ export default function TransactionGraph({
 
     return null
   }
-
-  
 
   if (isLoading) {
     return (
@@ -113,7 +120,7 @@ export default function TransactionGraph({
     renderEdgeLabels: true,
     defaultNodeColor: nodeColor,
     defaultEdgeColor: edgeColor,
-    minEdgeThickness: 3,
+    minEdgeThickness: 3.5,
     autoRescale: true,
     defaultEdgeType: "curvedArrow",
     edgeLabelWeight: "bold",
@@ -124,6 +131,8 @@ export default function TransactionGraph({
     nodeProgramClasses: {
       bordered: NodeBorderProgram,
     },
+    enableEdgeEvents: true,
+    zIndex:true
   }
 
   return (
@@ -159,8 +168,8 @@ export default function TransactionGraph({
         <ControlsContainer position="top-left">
           <LayoutControler />
         </ControlsContainer>
-        <ChangeNodeColor parameters={parameters} />
-        <GraphEvents/>
+        <GraphEvents />
+        <HighlightNeighbors parameters={parameters}/>
       </SigmaContainer>
     </section>
   )

@@ -2,7 +2,7 @@ export default function processData(predata: any) {
   const nodesMap = new Map()
   const edges: any[] = []
   if (!predata) {
-    console.log("empty data was given", predata)
+    console.warn("empty data was given", predata)
     return { nodesMap, edges }
   }
   //successful transaction
@@ -22,7 +22,7 @@ export default function processData(predata: any) {
     const des = value.description
     const type = value.type
     const source = value.source
-
+    const timestamp = value.timestamp
     //record native
     for (const nt of value.nativeTransfers || []) {
       const { fromUserAccount: from, toUserAccount: to, amount } = nt
@@ -47,13 +47,11 @@ export default function processData(predata: any) {
         description: des,
         txType: type,
         source,
+        timestamp,
       })
     }
   }
   //fetch balance for size
-
-  console.log(nodesMap)
-  console.log("edges", edges)
 
   return { nodesMap, edges }
 }
