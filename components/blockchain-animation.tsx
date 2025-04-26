@@ -5,27 +5,45 @@ import { motion } from "framer-motion"
 export function BlockchainAnimation() {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // Generate random nodes and connections
-  const nodes = Array.from({ length: 20 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 10 + 5,
-  }))
+  // Static predefined nodes arranged in 'S' shape
+  const nodes = [
+    { id: 0, x: 20, y: 15, size: 8 }, // Top of S
+    { id: 1, x: 35, y: 10, size: 8 },
+    { id: 2, x: 50, y: 15, size: 8 },
+    { id: 3, x: 65, y: 25, size: 8 },
+    { id: 4, x: 60, y: 40, size: 8 }, // Middle curve of S
+    { id: 5, x: 45, y: 45, size: 8 },
+    { id: 6, x: 30, y: 40, size: 8 },
+    { id: 7, x: 25, y: 55, size: 8 },
+    { id: 8, x: 35, y: 70, size: 8 }, // Bottom curve of S
+    { id: 9, x: 50, y: 75, size: 8 },
+    { id: 10, x: 65, y: 70, size: 8 },
+    { id: 11, x: 75, y: 60, size: 8 },
+  ]
 
-  const connections = []
-  for (let i = 0; i < nodes.length; i++) {
-    const numConnections = Math.floor(Math.random() * 3) + 1
-    for (let j = 0; j < numConnections; j++) {
-      const target = Math.floor(Math.random() * nodes.length)
-      if (target !== i) {
-        connections.push({
-          source: i,
-          target,
-        })
-      }
-    }
-  }
+  // Connections forming the S shape
+  const connections = [
+    // Top curve connections
+    { source: 0, target: 1 },
+    { source: 1, target: 2 },
+    { source: 2, target: 3 },
+    { source: 3, target: 4 },
+    // Middle connections
+    { source: 4, target: 5 },
+    { source: 5, target: 6 },
+    { source: 6, target: 7 },
+    // Bottom curve connections
+    { source: 7, target: 8 },
+    { source: 8, target: 9 },
+    { source: 9, target: 10 },
+    { source: 10, target: 11 },
+    // Additional connections for network effect
+    { source: 1, target: 5 },
+    { source: 2, target: 4 },
+    { source: 6, target: 8 },
+    { source: 7, target: 9 },
+    { source: 5, target: 9 },
+  ]
 
   return (
     <div className="relative w-full h-full" ref={containerRef}>
@@ -76,7 +94,13 @@ export function BlockchainAnimation() {
           />
         ))}
         <defs>
-          <linearGradient id="solana-gradient-anim" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient
+            id="solana-gradient-anim"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
             <stop offset="0%" stopColor="#00FFA3" />
             <stop offset="100%" stopColor="#DC1FFF" />
           </linearGradient>

@@ -27,6 +27,8 @@ import {
   Fingerprint,
   Shuffle,
   LayoutGrid,
+  Workflow,
+  Blend,
 } from "lucide-react"
 
 export default function LayoutControler() {
@@ -88,39 +90,61 @@ export default function LayoutControler() {
   )
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="h-8 w-8">
-          <LayoutGrid className="h-4 w-4" />
-          <span className="sr-only">Toggle layout</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-40">
-        <DropdownMenuItem onClick={() => apply("circlepack")}>
-          <CircleDot className="mr-2 h-4 w-4" />
-          <span>Circle Pack</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => apply("circular")}>
-          <Circle className="mr-2 h-4 w-4" />
-          <span>Circular</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => apply("force")}>
-          <Network className="mr-2 h-4 w-4" />
-          <span>Force</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => apply("fa2")}>
-          <Waypoints className="mr-2 h-4 w-4" />
-          <span>Force Atlas 2</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => apply("noverlap")}>
-          <Fingerprint className="mr-2 h-4 w-4" />
-          <span>No Overlap</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => apply("random")}>
-          <Shuffle className="mr-2 h-4 w-4" />
-          <span>Random</span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="flex items-center gap-2">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="sm" className="h-7 text-xs">
+            <Workflow className="mr-1.5 h-3.5 w-3.5" />
+            Layout
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-36">
+          <DropdownMenuItem
+            onClick={() => apply("circlepack")}
+            className="text-xs py-1.5"
+          >
+            <CircleDot className="mr-1.5 h-3.5 w-3.5" />
+            <span>Circle Pack</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => apply("circular")}
+            className="text-xs py-1.5"
+          >
+            <Circle className="mr-1.5 h-3.5 w-3.5" />
+            <span>Circular</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => apply("force")}
+            className="text-xs py-1.5"
+          >
+            <Network className="mr-1.5 h-3.5 w-3.5" />
+            <span>Force</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => apply("fa2")}
+            className="text-xs py-1.5"
+          >
+            <Waypoints className="mr-1.5 h-3.5 w-3.5" />
+            <span>Force Atlas 2</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => apply("random")}
+            className="text-xs py-1.5"
+          >
+            <Shuffle className="mr-1.5 h-3.5 w-3.5" />
+            <span>Random</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <Button
+        onClick={() => apply("noverlap")}
+        variant="outline"
+        size="sm"
+        className="h-7 text-xs"
+      >
+        <Fingerprint className="mr-1.5 h-3.5 w-3.5" />
+        No Overlap
+      </Button>
+    </div>
   )
 }

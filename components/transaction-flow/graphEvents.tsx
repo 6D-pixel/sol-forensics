@@ -1,5 +1,5 @@
 import { useRegisterEvents, useSigma } from "@react-sigma/core"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 
 interface NodeData {
@@ -33,6 +33,16 @@ function GraphEvents() {
   const sigma = useSigma()
   const [hoveredNode, setHoveredNode] = useState<NodeData | null>(null)
   const [hoveredEdge, setHoveredEdge] = useState<EdgeData | null>(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Clear timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
 
   // Add cursor styles
   useEffect(() => {
@@ -44,6 +54,10 @@ function GraphEvents() {
 
     registerEvents({
       enterNode: (event) => {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current)
+          timeoutRef.current = null
+        }
         container.style.cursor = "pointer"
         const node = event.node
         setHoveredNode({
@@ -55,9 +69,16 @@ function GraphEvents() {
       },
       leaveNode: () => {
         container.style.cursor = "move"
-        setTimeout(() => setHoveredNode(null), 10000)
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current)
+        }
+        timeoutRef.current = setTimeout(() => setHoveredNode(null), 10000)
       },
       enterEdge: (event) => {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current)
+          timeoutRef.current = null
+        }
         container.style.cursor = "pointer"
         const edge = sigma.getGraph().getEdgeAttributes(event.edge)
 
@@ -77,7 +98,10 @@ function GraphEvents() {
       },
       leaveEdge: () => {
         container.style.cursor = "move"
-        setTimeout(() => setHoveredEdge(null), 10000)
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current)
+        }
+        timeoutRef.current = setTimeout(() => setHoveredEdge(null), 10000)
       },
     })
   }, [registerEvents, sigma])

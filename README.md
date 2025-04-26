@@ -19,7 +19,7 @@
         [] Drag and drop (low priority)
         [-] Change settings of the force graph and fa2 for the repel and see edges
         [x] filer based on user input Date, min sol
-        [] frontEnd changes [+]
+        [x] frontEnd changes [+]
         [] connect with solana wallet
 
 # Backend
