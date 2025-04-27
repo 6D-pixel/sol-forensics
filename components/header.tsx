@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
 import { useState, useEffect } from "react"
+import ConnectWallet from "./ConnectWallet"
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -49,10 +50,12 @@ export function Header() {
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-background/50 hover:bg-accent">Tools</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-background/50 hover:bg-accent">
+                  Tools
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid gap-4 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-2 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-                    <ListItem 
+                    <ListItem
                       href="/transaction-visualizer"
                       title="Transaction Visualizer"
                       className="hover:shadow-md transition-all duration-200"
@@ -64,10 +67,12 @@ export function Header() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-background/50 hover:bg-accent">Resources</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-background/50 hover:bg-accent">
+                  Resources
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid gap-4 p-6 md:w-[400px] lg:w-[600px] md:grid-cols-2 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-                    <ListItem 
+                    <ListItem
                       href="/docs"
                       title="Documentation"
                       className="hover:shadow-md transition-all duration-200"
@@ -82,7 +87,7 @@ export function Header() {
         </div>
         <div className="flex items-center gap-4">
           <ThemeToggle />
-          <Button>connect wallet</Button>
+          <ConnectWallet/>
         </div>
       </div>
     </header>

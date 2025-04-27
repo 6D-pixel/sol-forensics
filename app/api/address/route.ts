@@ -3,40 +3,6 @@ import axios from "axios"
 import { ApiResponseSignature, ParametersTypes } from "../types"
 import redis from "@/lib/redis"
 
-//gets wallet history
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { walletAddress: string } }
-) {
-  try {
-    const { walletAddress } = params
-
-    const heliusUrl = process.env.HELIUS_URL
-    const heliusApiKey = process.env.HELIUS_API
-
-    if (!heliusApiKey || !heliusUrl) {
-      console.error("Helius API or Url error")
-      return NextResponse.json(
-        { error: "Server config error" },
-        { status: 500 }
-      )
-    }
-
-    const ulr: string = `${heliusUrl}/addresses/${walletAddress}/transactions?api-key=${heliusApiKey}`
-
-    const response = await axios.get(ulr)
-
-    return NextResponse.json(response.data)
-  } catch (e: any) {
-    console.error("error fetching wallet history from Helius", e)
-
-    return NextResponse.json(
-      { error: "failed to fetch data", details: e.message || "Unknown error" },
-      { status: 500 }
-    )
-  }
-}
-
 //post request to get all Transactions
 export async function POST(req: NextRequest) {
   try {

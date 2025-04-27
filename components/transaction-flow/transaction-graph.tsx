@@ -21,6 +21,8 @@ import { NodeBorderProgram } from "@sigma/node-border"
 import GraphEvents from "./graphEvents"
 import HighlightNeighbors from "./HighlightNeighbors"
 import { useLayoutCirclepack } from "@react-sigma/layout-circlepack"
+import processBalance from "@/lib/process-balance"
+import { previousDay } from "date-fns"
 export default function TransactionGraph({
   preData,
   isLoading,
@@ -37,6 +39,22 @@ export default function TransactionGraph({
     }
   }, [preData])
 
+  //Get balance once graphData is available
+  // useEffect(() => {
+  //   const updateBalance = async () => {
+  //     if(graphData){
+  //       const newNodeMap = await processBalance(graphData.nodesMap)
+  //       if (newNodeMap) {
+  //         setGraphData(prevGraphData => ({
+  //           ...prevGraphData!,
+  //           nodesMap: newNodeMap
+  //         }))
+  //       }
+  //     }
+  //   }
+  //   updateBalance()
+  // },[graphData])
+
   const LoadGraph = () => {
     const loadGraph = useLoadGraph()
     const { assign } = useLayoutCirclepack()
@@ -50,7 +68,7 @@ export default function TransactionGraph({
         graph.addNode(node.address, {
           x: node.x,
           y: node.y,
-          size: node.size,
+          size: node.balance ? Math.min(25, Math.max(9, Math.log10(node.balance) * 2)) : node.size,
           hidden: false,
           borderColor: "#532d88",
           balance: node.balance,

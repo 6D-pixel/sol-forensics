@@ -21,3 +21,15 @@ export interface ParametersTypes {
   endDate?: Date | null | undefined
   minValue?: number | undefined
 }
+
+export type BalanceResType = [{
+  jsonrpc: string
+  id: string
+  result: {
+    context: {
+      slot: number
+      apiVersion: string
+    }
+    value: number
+  }
+}]

@@ -4,8 +4,9 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 
 interface NodeData {
   address: string
-  x: number
-  y: number
+  x?: number
+  y?: number
+  balance: number
 }
 
 interface EdgeData {
@@ -59,11 +60,10 @@ function GraphEvents() {
           timeoutRef.current = null
         }
         container.style.cursor = "pointer"
-        const node = event.node
+        const node = sigma.getGraph().getNodeAttributes(event.node)
         setHoveredNode({
-          address: node,
-          x: event.event.x,
-          y: event.event.y,
+          address: event.node,
+          balance: node.balance,
         })
         setHoveredEdge(null)
       },
@@ -123,10 +123,19 @@ function GraphEvents() {
             <CardHeader>
               <CardTitle className="text-sm">Node Details</CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm font-mono break-all">
-                {hoveredNode.address}
-              </p>
+            <CardContent className="space-y-2">
+              <div>
+                <p className="text-xs text-muted-foreground">Address</p>
+                <p className="text-sm font-mono break-all">
+                  {hoveredNode.address}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs text-muted-foreground">Balance</p>
+                <p className="text-sm font-mono break-all">
+                  {hoveredNode.balance}
+                </p>
+              </div>
             </CardContent>
           </Card>
         </div>

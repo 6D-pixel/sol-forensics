@@ -142,7 +142,7 @@ export default function LayoutControler() {
         size="sm"
         className="h-7 text-xs"
       >
-        <Fingerprint className="mr-1.5 h-3.5 w-3.5" />
+        <Blend className="mr-1.5 h-3.5 w-3.5" />
         No Overlap
       </Button>
     </div>

@@ -15,17 +15,17 @@
   [] can use graphology lib to find other wallet inside the graph (graph.has('node'))
 - [x] adding graph event
   - [x] hover to view node data
-        [] add link to solscan for the card
+        [] add link to solscan for the card [+]
         [] Drag and drop (low priority)
         [-] Change settings of the force graph and fa2 for the repel and see edges
         [x] filer based on user input Date, min sol
-        [x] frontEnd changes [+]
+        [x] frontEnd changes 
         [] connect with solana wallet
 
 # Backend
 
 [x] Redis implementation caching using 'address' as key (2.5 s -> 18 ms)
-[] fetch balance the size to render them according to the value [+]
+[-] fetch balance the size to render them according to the value
 
 # Project setup
 

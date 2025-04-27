@@ -41,18 +41,17 @@ export interface Edge {
   timestamp?: string
 }
 
+export interface NodeMap {
+  address: string
+  balance: number
+  size: number
+  x: number
+  y: number
+  color: string
+}
+
 export interface GraphData {
-  nodesMap: Map<
-    string,
-    {
-      address: string
-      balance: number
-      size: number
-      x: number
-      y: number
-      color: string
-    }
-  >
+  nodesMap: Map<string, NodeMap>
   edges: Array<{
     from: string
     to: string
@@ -64,3 +63,14 @@ export interface GraphData {
     timestamp: string
   }>
 }
+  edges: Array<{
+    from: string
+    to: string
+    transferAmount: number
+    signature: string
+    description: string
+    txType: string
+    source: string
+    timestamp: string
+  }>
+
