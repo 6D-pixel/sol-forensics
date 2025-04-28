@@ -28,13 +28,35 @@ function InsiderGraph({ graphData }: { graphData: any }) {
     const { assign } = useLayoutCirclepack()
 
     useEffect(() => {
-      if (!graphData) return
+      if (!graphData || !graphData.nodes || graphData.nodes.length === 0) return
       const graph = new Graph()
+
+      const maxHoldings = Math.max(
+        ...graphData.nodes.map((node: any) => node.holdings || 0)
+      )
+
+      const calculateNodeSize = (
+        holdings: number,
+        currentMaxHoldings: number
+      ): number => {
+        const minSize = 15
+        const maxSize = 50
+
+        if (currentMaxHoldings <= 0) {
+          return minSize
+        }
+
+        const scaledSize =
+          minSize + (holdings / currentMaxHoldings) * (maxSize - minSize)
+
+        return Math.max(minSize, Math.min(maxSize, scaledSize))
+      }
 
       // Add nodesMap
       for (const node of graphData.nodes) {
+        const nodeSize = calculateNodeSize(node.holdings || 0, maxHoldings)
         graph.addNode(node.id, {
-          size: 15,
+          size: nodeSize,
           hidden: false,
           borderColor: "#532d88",
           holdings: node.holdings,
