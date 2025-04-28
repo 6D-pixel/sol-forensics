@@ -61,6 +61,13 @@ export function Header() {
                       Visualize and analyze individual transactions on the
                       Solana blockchain
                     </ListItem>
+                    <ListItem
+                      href="/tokenInsiders"
+                      title="Token Insiders"
+                      className="hover:shadow-md transition-all duration-200"
+                    >
+                      Analyze token insider
+                    </ListItem>
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>

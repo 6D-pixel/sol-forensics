@@ -13,46 +13,16 @@ import "@react-sigma/core/lib/style.css"
 import { TransactionGraphProps } from "@/app/types"
 import processData from "@/lib/process-data"
 import { GraphData } from "@/app/types"
-import LayoutControler from "./layoutControler"
 import { ZoomIn, ZoomOut, Focus } from "lucide-react"
 import getCSSVar from "@/util/getcssvar"
 import { EdgeCurvedArrowProgram } from "@sigma/edge-curve"
 import { NodeBorderProgram } from "@sigma/node-border"
-import GraphEvents from "./graphEvents"
-import HighlightNeighbors from "./HighlightNeighbors"
 import { useLayoutCirclepack } from "@react-sigma/layout-circlepack"
-export default function TransactionGraph({
-  preData,
-  isLoading,
-  hasData,
-  parameters,
-}: TransactionGraphProps) {
-  const [graphData, setGraphData] = useState<GraphData | null>(null)
+import LayoutControler from "../transaction-flow/layoutControler"
+import InsiderEvents from "./InsiderEvents"
+import HighlightNeighbors from "../transaction-flow/HighlightNeighbors"
 
-  // Process data when preData changes
-  useEffect(() => {
-    if (preData) {
-      const processed = processData(preData, parameters)
-      setGraphData(processed)
-    }
-  }, [preData])
-
-  //Get balance once graphData is available
-  // useEffect(() => {
-  //   const updateBalance = async () => {
-  //     if(graphData){
-  //       const newNodeMap = await processBalance(graphData.nodesMap)
-  //       if (newNodeMap) {
-  //         setGraphData(prevGraphData => ({
-  //           ...prevGraphData!,
-  //           nodesMap: newNodeMap
-  //         }))
-  //       }
-  //     }
-  //   }
-  //   updateBalance()
-  // },[graphData])
-
+function InsiderGraph({ graphData }: { graphData: any }) {
   const LoadGraph = () => {
     const loadGraph = useLoadGraph()
     const { assign } = useLayoutCirclepack()
@@ -62,30 +32,25 @@ export default function TransactionGraph({
       const graph = new Graph()
 
       // Add nodesMap
-      for (const [_, node] of graphData.nodesMap) {
-        graph.addNode(node.address, {
-          x: node.x,
-          y: node.y,
-          size: node.balance ? Math.min(25, Math.max(9, Math.log10(node.balance) * 2)) : node.size,
+      for (const node of graphData.nodes) {
+        graph.addNode(node.id, {
+          size: 15,
           hidden: false,
           borderColor: "#532d88",
-          balance: node.balance,
+          holdings: node.holdings,
+          participant: String(node.participant),
+          x: node.x,
+          y: node.y,
         })
       }
 
       // Add edges
-      for (const edge of graphData.edges) {
+      for (const edge of graphData.links) {
         try {
-          graph.addEdge(edge.from, edge.to, {
+          graph.addEdge(edge.source, edge.target, {
             size: 2,
-            label: `${edge.transferAmount} SOL`,
-            from: edge.from,
-            to: edge.to,
-            signature: edge.signature,
-            txType: edge.txType,
             source: edge.source,
-            timestamp: edge.timestamp,
-            description: edge.description,
+            target: edge.target,
           })
         } catch (error) {
           console.warn("Failed to add edge:", error)
@@ -95,33 +60,9 @@ export default function TransactionGraph({
       loadGraph(graph)
       //apply layout
       assign()
-    }, [graphData, loadGraph, preData, assign])
+    }, [graphData, loadGraph, assign])
 
     return null
-  }
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-full">
-        Loading transaction data...
-      </div>
-    )
-  }
-
-  if (!hasData) {
-    return (
-      <div className="flex justify-center items-center h-full">
-        No transaction data available
-      </div>
-    )
-  }
-
-  if (!graphData) {
-    return (
-      <div className="flex justify-center items-center h-full">
-        Processing graph data...
-      </div>
-    )
   }
 
   const sigmaStyle = {
@@ -148,6 +89,13 @@ export default function TransactionGraph({
     },
     enableEdgeEvents: true,
     zIndex: true,
+  }
+  if (!graphData) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        Processing graph data...
+      </div>
+    )
   }
 
   return (
@@ -183,9 +131,10 @@ export default function TransactionGraph({
         <ControlsContainer position="top-left">
           <LayoutControler />
         </ControlsContainer>
-        <GraphEvents />
-        <HighlightNeighbors parameters={parameters} />
+        <InsiderEvents />
+        <HighlightNeighbors parameters={{ address: "" }} />
       </SigmaContainer>
     </section>
   )
 }
+export default InsiderGraph
