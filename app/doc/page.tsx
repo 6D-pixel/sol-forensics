@@ -25,13 +25,61 @@ export default function DocumentationPage() {
               interactions, and investigate on-chain activity through an
               interactive graph interface.
             </p>
-            <p className="text-lg">
+            <p className="text-lg mb-4">
               By inputting a Solana wallet address, users can generate a visual
               representation of recent transactions and connections, aiding in
               forensic analysis, compliance checks, or general blockchain
               exploration.
             </p>
-            {/* Optional: Placeholder for a high-level screenshot of the main tool interface */}
+            {/* Added paragraph with internal links */}
+            <p className="text-lg mb-4">To quickly find what you need:</p>
+            <ul className="list-disc pl-6 space-y-1 text-lg mb-4">
+              <li>
+                Learn how to begin with the{" "}
+                <a
+                  href="#getting-started"
+                  className="text-blue-400 hover:underline"
+                >
+                  Getting Started
+                </a>{" "}
+                guide.
+              </li>
+              <li>
+                Discover the capabilities in the{" "}
+                <a href="#features" className="text-blue-400 hover:underline">
+                  Core Features
+                </a>{" "}
+                section.
+              </li>
+              <li>
+                Understand how it works under the hood in{" "}
+                <a
+                  href="#architecture"
+                  className="text-blue-400 hover:underline"
+                >
+                  Technical Architecture
+                </a>
+                .
+              </li>
+              <li>
+                Review the{" "}
+                <a
+                  href="#limitations"
+                  className="text-blue-400 hover:underline"
+                >
+                  Limitations & Known Issues
+                </a>
+                .
+              </li>
+              <li>
+                Find helpful hints in{" "}
+                <a href="#tips" className="text-blue-400 hover:underline">
+                  Tips & Best Practices
+                </a>
+                .
+              </li>
+            </ul>
+            {/* Optional: Placeholder for a high-level screenshot */}
             <div className="mt-6 p-4 border-2 border-dashed border-gray-300 rounded-lg text-center text-gray-500">
               [Optional: Screenshot/GIF showing the main tool interface in
               action]
@@ -260,7 +308,7 @@ export default function DocumentationPage() {
                   href="https://nextjs.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
+                  className="text-blue-400 hover:underline"
                 >
                   Next.js
                 </a>{" "}
@@ -283,7 +331,7 @@ export default function DocumentationPage() {
                   href="https://www.helius.dev/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
+                  className="text-blue-400 hover:underline"
                 >
                   Helius API
                 </a>{" "}
@@ -317,7 +365,7 @@ export default function DocumentationPage() {
                   href="https://www.sigmajs.org/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
+                  className="text-blue-400 hover:underline"
                 >
                   Sigma.js
                 </a>{" "}
@@ -326,7 +374,7 @@ export default function DocumentationPage() {
                   href="https://graphology.github.io/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
+                  className="text-blue-400 hover:underline"
                 >
                   Graphology
                 </a>
@@ -342,7 +390,7 @@ export default function DocumentationPage() {
                   href="https://redis.io/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
+                  className="text-blue-400 hover:underline"
                 >
                   Redis
                 </a>{" "}
