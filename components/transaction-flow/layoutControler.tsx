@@ -35,7 +35,11 @@ export default function LayoutControler() {
   //init layouts
   const circlepack = useLayoutCirclepack()
   const circular = useLayoutCircular()
-  const force = useWorkerLayoutForce()
+  const force = useWorkerLayoutForce({
+    settings: {
+      maxMove: 3,
+    },
+  })
   const fa2 = useWorkerLayoutForceAtlas2({
     settings: {
       gravity: 1,
