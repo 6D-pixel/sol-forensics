@@ -1,11 +1,11 @@
-import Redis from "ioredis"
+import VALKEY from "ioredis"
 
-if (!process.env.REDIS_URL) {
+if (!process.env.VALKEY_URL) {
   console.error("redis url not found")
   process.exit(1)
 }
 
-const redis = new Redis(process.env.REDIS_URL!)
+const redis = new VALKEY(process.env.VALKEY_URL!)
 
 redis.on("ready", () => {
   console.log("Redis instance is ready and connected.")
