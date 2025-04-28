@@ -1,17 +1,18 @@
 "use client"
-import { Dispatch, FC, SetStateAction } from "react"
+import { Dispatch, SetStateAction } from "react"
 import { Button } from "./ui/button"
-import { useWallet } from "@solana/wallet-adapter-react"
+import { useWallet } from "@/lib/context/WalletContext"
 import axios from "axios"
 
-interface SignatureMessage {
+// These interfaces match the exact API specification
+interface SignMessage {
   message: string
   publicKey: string
   timestamp: number
 }
 
-interface SignatureRequest {
-  message: SignatureMessage
+interface AuthRequest {
+  message: SignMessage
   signature: {
     data: number[]
     type: string
@@ -24,68 +25,74 @@ function SignRugcheck({
 }: {
   setSignedAction: Dispatch<SetStateAction<boolean>>
 }) {
-  const { publicKey, signMessage } = useWallet()
-  const RugCheckApi = "https://api.rugcheck.xyz/v1/auth/login/solana"
-  const message: string = "Sign-in to Rugcheck.xyz"
-
-  const createSignMessage = (
-    message: string,
-    publicKey: string
-  ): SignatureMessage => {
-    return {
-      message,
-      publicKey,
-      timestamp: Date.now(),
-    }
-  }
+  const { wallet, isConnected, publicKey } = useWallet()
+  const RugCheckApi = "https://api.rugcheck.xyz/v1/auth/login/solana" // Matches the exact API endpoint
+  const message = "Sign-in to Rugcheck.xyz"
 
   async function handleRugCheckApi(): Promise<void> {
-    if (!publicKey || !signMessage) {
+    if (!isConnected || !wallet || !publicKey) {
       console.error("Wallet not connected")
       return
     }
 
     try {
-      // Create the message to sign
-      const signInMessage = createSignMessage(message, publicKey.toBase58())
-
-      // Convert message to bytes for signing
-      const messageBytes = new TextEncoder().encode(
-        JSON.stringify(signInMessage)
-      )
-
-      // Sign the message
-      const signature = await signMessage(messageBytes)
-
-      // Prepare the request body
-      const requestBody: SignatureRequest = {
-        message: signInMessage,
-        signature: {
-          data: Array.from(signature),
-          type: "ed25519",
-        },
-        wallet: publicKey.toBase58(),
+      // Create the message object exactly as specified
+      const signMessage: SignMessage = {
+        message,
+        publicKey: publicKey.toString(),
+        timestamp: Math.floor(Date.now() / 1000), // Unix timestamp in seconds
       }
 
-      // Send request to RugCheck API
-      const { data } = await axios.post(RugCheckApi, requestBody, {
+      // Convert message to bytes for signing
+      const messageBytes = new TextEncoder().encode(JSON.stringify(signMessage))
+
+      // Sign the message
+      const signature = await wallet.signMessage(messageBytes)
+
+      // Convert signature to number array as specified
+      const signatureArray = Array.from(new Uint8Array(signature))
+
+      // Construct the request body exactly as specified in the API docs
+      const requestBody: AuthRequest = {
+        message: signMessage,
+        signature: {
+          data: signatureArray,
+          type: "ed25519",
+        },
+        wallet: publicKey.toString(),
+      }
+
+      // Make the API request with exact headers from the docs
+      const response = await axios.post(RugCheckApi, requestBody, {
         headers: {
+          accept: "application/json",
           "Content-Type": "application/json",
         },
       })
 
-      // Store the JWT token
-      if (data.token) {
-        localStorage.setItem("rugcheck_token", data.token)
+      if (response.data?.token) {
+        localStorage.setItem("rugcheck_token", response.data.token)
         setSignedAction(true)
       }
     } catch (error: any) {
-      console.error("Error during RugCheck authentication:", error)
+      console.error("Auth Error:", {
+        message: error?.response?.data?.message || error.message,
+        status: error?.response?.status,
+        data: error?.response?.data,
+      })
       setSignedAction(false)
     }
   }
 
-  return <Button onClick={handleRugCheckApi}>Sign</Button>
+  return (
+    <Button
+      onClick={handleRugCheckApi}
+      className="w-full"
+      disabled={!isConnected}
+    >
+      {isConnected ? "Sign with Wallet" : "Connect Wallet First"}
+    </Button>
+  )
 }
 
 export default SignRugcheck

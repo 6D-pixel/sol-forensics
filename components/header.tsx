@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-
 import Link from "next/link"
 import { SolanaLogo } from "@/components/solana-logo"
 import { ThemeToggle } from "@/components/theme/theme-toggle"
@@ -13,11 +12,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { cn } from "@/lib/utils"
 import { useState, useEffect } from "react"
-import ConnectWallet from "./ConnectWallet"
+import ConnectWallet from "./WalletProvider"
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -71,13 +69,9 @@ export function Header() {
                   Resources
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid gap-4 p-6 md:w-[400px] lg:w-[600px] md:grid-cols-2 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-                    <ListItem
-                      href="/docs"
-                      title="Documentation"
-                      className="hover:shadow-md transition-all duration-200"
-                    >
-                      Comprehensive guides for using our forensics tools
+                  <ul className="grid w-[400px] gap-4 p-6 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                    <ListItem href="/doc" title="Documentation">
+                      Learn how to use the Solana Forensics tool effectively
                     </ListItem>
                   </ul>
                 </NavigationMenuContent>
@@ -86,8 +80,8 @@ export function Header() {
           </NavigationMenu>
         </div>
         <div className="flex items-center gap-4">
+          <ConnectWallet />
           <ThemeToggle />
-          <ConnectWallet/>
         </div>
       </div>
     </header>

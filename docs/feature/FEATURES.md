@@ -71,3 +71,4 @@ This document outlines the core features and functionalities required for the So
 # bug
 
 [x]web-worker not getting killed - i did't use kill() forgot '()' (use eslint in future) - the kill() removed to worker and it when i choose the graph type 'fa2||..' error worker layout killed used stop() instead
+[]fix valkey catch ip addres to vercel only
