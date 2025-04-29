@@ -1,6 +1,8 @@
 import { useRegisterEvents, useSigma } from "@react-sigma/core"
 import { useEffect, useState, useRef } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import Link from "next/link"
+import { ExternalLink } from "lucide-react"
 
 interface NodeData {
   address: string
@@ -128,6 +130,13 @@ function GraphEvents() {
                 <p className="text-xs text-muted-foreground">Address</p>
                 <p className="text-sm font-mono break-all">
                   {hoveredNode.address}
+                  <Link
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={`https://solscan.io/account/${hoveredNode.address}`}
+                  >
+                    <ExternalLink className="inline-block ml-2 w-4 h-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors" />
+                  </Link>
                 </p>
               </div>
               <div>
@@ -159,11 +168,27 @@ function GraphEvents() {
                 <p className="text-xs text-muted-foreground">From</p>
                 <p className="text-sm font-mono break-all">
                   {hoveredEdge.from}
+                  <Link
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={`https://solscan.io/account/${hoveredEdge.from}`}
+                  >
+                    <ExternalLink className="inline-block ml-2 w-4 h-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors" />
+                  </Link>
                 </p>
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">To</p>
-                <p className="text-sm font-mono break-all">{hoveredEdge.to}</p>
+                <p className="text-sm font-mono break-all">
+                  {hoveredEdge.to}
+                  <Link
+                    href={`https://solscan.io/account/${hoveredEdge.to}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ExternalLink className="inline-block ml-2 w-4 h-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors" />
+                  </Link>
+                </p>
               </div>
               {hoveredEdge.amount && (
                 <div>
@@ -176,6 +201,13 @@ function GraphEvents() {
                   <p className="text-xs text-muted-foreground">Signature</p>
                   <p className="text-sm font-mono break-all">
                     {hoveredEdge.signature}
+                    <Link
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={`https://solscan.io/tx/${hoveredEdge.signature}`}
+                    >
+                      <ExternalLink className="inline-block ml-2 w-4 h-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors" />
+                    </Link>
                   </p>
                 </div>
               )}
