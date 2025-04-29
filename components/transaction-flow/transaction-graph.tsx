@@ -7,7 +7,6 @@ import {
   useLoadGraph,
   ControlsContainer,
   ZoomControl,
-  useSigma,
 } from "@react-sigma/core"
 import "@react-sigma/core/lib/style.css"
 import { TransactionGraphProps } from "@/app/types"
@@ -66,7 +65,9 @@ export default function TransactionGraph({
         graph.addNode(node.address, {
           x: node.x,
           y: node.y,
-          size: node.balance ? Math.min(25, Math.max(9, Math.log10(node.balance) * 2)) : node.size,
+          size: node.balance
+            ? Math.min(25, Math.max(9, Math.log10(node.balance) * 2))
+            : node.size,
           hidden: false,
           borderColor: "#532d88",
           balance: node.balance,
@@ -102,8 +103,9 @@ export default function TransactionGraph({
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-full">
-        Loading transaction data...
+      <div className="flex flex-col justify-center items-center h-full gap-4">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-foreground/30 border-t-foreground"></div>
+        <span className="text-sm text-muted-foreground">Loading graph data...</span>
       </div>
     )
   }
@@ -119,7 +121,12 @@ export default function TransactionGraph({
   if (!graphData) {
     return (
       <div className="flex justify-center items-center h-full">
-        Processing graph data...
+        <div className="animate-pulse flex items-center gap-2">
+          <div className="w-2 h-2 bg-foreground/50 rounded-full"></div>
+          <div className="w-2 h-2 bg-foreground/50 rounded-full animate-pulse delay-75"></div>
+          <div className="w-2 h-2 bg-foreground/50 rounded-full animate-pulse delay-150"></div>
+          <span className="ml-2">Processing graph data...</span>
+        </div>
       </div>
     )
   }

@@ -11,6 +11,7 @@ The Solana Forensics Platform is a web-based tool designed to analyze and visual
 - **Transaction Clustering**: Group related transactions and identify associated wallets.
 - **Interactive Graphs**: Zoom, pan, and explore transaction data with ease.
 - **Custom Filters**: Filter transactions by date, amount, and other parameters.
+- **Insider Graph Analysis**: Utilize token mint address to detect internal connections.
 
 ## Technologies Used
 
