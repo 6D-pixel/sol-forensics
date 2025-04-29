@@ -105,20 +105,13 @@ export default function TransactionGraph({
     return (
       <div className="flex flex-col justify-center items-center h-full gap-4">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-foreground/30 border-t-foreground"></div>
-        <span className="text-sm text-muted-foreground">Loading graph data...</span>
-      </div>
-    )
-  }
-
-  if (!hasData) {
-    return (
-      <div className="flex justify-center items-center h-full">
-        No transaction data available
+        <span className="text-sm text-muted-foreground">Enter data and wait (6s)...</span>
       </div>
     )
   }
 
   if (!graphData) {
+
     return (
       <div className="flex justify-center items-center h-full">
         <div className="animate-pulse flex items-center gap-2">
@@ -127,6 +120,14 @@ export default function TransactionGraph({
           <div className="w-2 h-2 bg-foreground/50 rounded-full animate-pulse delay-150"></div>
           <span className="ml-2">Processing graph data...</span>
         </div>
+      </div>
+    )
+  }
+
+  if (!hasData) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        No transaction data available
       </div>
     )
   }

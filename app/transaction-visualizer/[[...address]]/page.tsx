@@ -30,13 +30,12 @@ export default function TransactionVisualizerPage() {
       return
     }
 
-    setIsLoading(true)
+    setIsLoading(false)
     const Response = await axios.post("/api/address", {
       parameters: newParameters,
     })
 
     setPreData(Response.data)
-    setIsLoading(false)
     setHasData(true)
   }
 
