@@ -71,7 +71,3 @@ public/         # Static assets
 - Navigate to the **Transaction Visualizer** to analyze wallet transactions.
 - Use the **Input Parameters Sheet** to specify wallet addresses and filters.
 - Explore the interactive graph to uncover transaction patterns and connections.
-
-## License
-
-This project is open-source and available under the [MIT License](LICENSE).
