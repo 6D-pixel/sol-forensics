@@ -50,18 +50,19 @@ This document outlines the core features and functionalities required for the So
    [x] basic implementation done
   [x] render the graph like bubble map
   [x] special color for user entered wallet
-  [] there are different types present like (swaps,etc...)
-  [] Cluster the data using some algo available in graphology
-  [] label known wallets (some already has labels)
-  [] can use graphology lib to find other wallet inside the graph (graph.has('node'))
 - [x] adding graph event
   - [x] hover to view node data
-        [] add link to solscan for the card [+]
+        [x] add link to solscan for the card [+]
         [] Drag and drop (low priority)
         [-] Change settings of the force graph and fa2 for the repel and see edges
         [x] filer based on user input Date, min sol
         [x] frontEnd changes
-        [] connect with solana wallet
+        [x] connect with solana wallet
+[] Cluster the data using some algo available in graphology
+[] label known wallets (some already has labels)
+[] can use graphology lib to find other wallet inside the graph (graph.has('node'))
+[] there are different types present like (swaps,etc...)
+[] valkey for Rugcheck api
 
 # Backend
 

@@ -1,8 +1,6 @@
 import { useRegisterEvents, useSigma } from "@react-sigma/core"
 import { useEffect, useState, useRef } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { json } from "stream/consumers"
-import Link from "next/link"
 import { ExternalLink } from "lucide-react"
 
 interface NodeData {
@@ -117,13 +115,13 @@ function InsiderEvents() {
                 <p className="text-xs text-muted-foreground">Address</p>
                 <p className="text-sm font-mono break-all">
                   {hoveredNode.address}
-                  <Link
+                  <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href={`https://solscan.io/account/${hoveredNode.address}`}
                   >
                     <ExternalLink className="inline-block ml-2 w-4 h-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors" />
-                  </Link>
+                  </a>
                 </p>
               </div>
               <div>
@@ -161,26 +159,26 @@ function InsiderEvents() {
                 <p className="text-xs text-muted-foreground">Source</p>
                 <p className="text-sm font-mono break-all">
                   {hoveredEdge.source}
-                  <Link
+                  <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href={`https://solscan.io/account/${hoveredEdge.source}`}
                   >
                     <ExternalLink className="inline-block ml-2 w-4 h-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors" />
-                  </Link>
+                  </a>
                 </p>
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">Target</p>
                 <p className="text-sm font-mono break-all">
                   {hoveredEdge.target}
-                  <Link
+                  <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href={`https://solscan.io/account/${hoveredEdge.target}`}
                   >
                     <ExternalLink className="inline-block ml-2 w-4 h-4 text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors" />
-                  </Link>
+                  </a>
                 </p>
               </div>
             </CardContent>

@@ -85,7 +85,7 @@
   ) !important;
   --sigma-controls-border-color: hsl(var(--foreground) / 0.2) !important;
   --sigma-controls-color: hsl(var(--foreground)) !important;
-  --sigma-controls-zindex: 100;
+  --sigma-controls-zindex: 0;
   --sigma-controls-margin: 5px;
   --sigma-controls-size: 30px;
 }
