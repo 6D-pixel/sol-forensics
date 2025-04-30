@@ -10,12 +10,14 @@ export function Footer() {
             <SolanaLogo className="h-8 w-8" />
             <span className="font-bold text-lg">Solana Forensics</span>
           </div>
-          <Link
-            href="#"
+          <a
+            href="https://github.com/6D-pixel/sol-forensics"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground"
           >
             GitHub
-          </Link>
+          </a>
         </div>
       </div>
     </footer>
