@@ -1,4 +1,3 @@
-import Link from "next/link"
 import { SolanaLogo } from "@/components/solana-logo"
 
 export function Footer() {

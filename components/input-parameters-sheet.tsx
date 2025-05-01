@@ -190,7 +190,7 @@ export function InputParametersSheet({
             <FormItem>
               <FormLabel>Minimum SOL Value (Optional)</FormLabel>
               <FormControl>
-                <Input type="number" min="0" step="0.01" {...field} />
+                <Input type="number" min="0" step="0.000000001" {...field} />
               </FormControl>
               <FormDescription>
                 Filter transactions with value greater than this amount
